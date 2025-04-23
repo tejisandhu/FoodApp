@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+          <meta charset="UTF-8">
+          <title>OTP Verification - FoodExpress</title>
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+          <style>
+        body {
+            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 50%, #FF99AC 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .container h2 {
+            text-align: center;
+            color: #e63946;
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            font-size: 1rem;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+        .btn-verify {
+            background-color: #e63946;
+            border-color: #e63946;
+            color: #fff;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-verify:hover {
+            background-color: #d62839;
+        }
+        .alert {
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+     </head>
+     <body>
+          <div class="container">
+               <h2>OTP Verification</h2>
+               <div th:if="${success}" class="alert alert-success"
+                    th:text="${success}"></div>
+               <div th:if="${error}" class="alert alert-danger"
+                    th:text="${error}"></div>
+               <form th:action="@{/verify-otp}" method="post">
+                    <div class="mb-3">
+                         <label for="otp" class="form-label">Enter OTP</label>
+                         <input type="text" id="otp" name="otp"
+                              class="form-control" placeholder="Enter your OTP"
+                              required />
+                    </div>
+                    <button type="submit" class="btn btn-verify">Verify
+                         OTP</button>
+               </form>
+          </div>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+     </body>
+</html>

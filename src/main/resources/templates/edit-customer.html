@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+          <meta charset="UTF-8">
+          <title>Edit Customer Profile - FoodExpress</title>
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+          <link rel="stylesheet"
+               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+          <style>
+        body {
+            background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        .form-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #e63946;
+        }
+        .form-control, .form-select {
+            border-radius: 0.5rem;
+        }
+        .btn-primary {
+            background-color: #e63946;
+            border-color: #e63946;
+        }
+        .btn-primary:hover {
+            background-color: #d62839;
+        }
+        .profile-pic-preview {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #e63946;
+            margin-bottom: 1rem;
+        }
+    </style>
+     </head>
+     <body>
+          <div class="form-container">
+               <h2 class="form-title"><i class="bi bi-person-circle"></i> Edit
+                    Profile</h2>
+               <form th:action="@{/customer/dashboard/edit}" method="post"
+                    enctype="multipart/form-data" th:object="${user}">
+                    <div class="text-center">
+                         <img th:src="@{'/uploads/customer/' + ${user.image}}"
+                              alt="Profile Pic" class="profile-pic-preview"
+                              th:if="${user.image != null}">
+                         <img src="/img/default-user.png" alt="Default Pic"
+                              class="profile-pic-preview"
+                              th:if="${user.image == null}">
+                    </div>
+
+                    <div class="mb-3">
+                         <label class="form-label">First Name</label>
+                         <input type="text" class="form-control"
+                              th:field="*{firstName}" required>
+                    </div>
+                    <div class="mb-3">
+                         <label class="form-label">last Name</label>
+                         <input type="text" class="form-control"
+                              th:field="*{lastName}" required>
+                    </div>
+
+                    <div class="mb-3">
+                         <label class="form-label">Phone Number</label>
+                         <input type="text" class="form-control"
+                              th:field="*{phone}" required>
+                    </div>
+
+                    <div class="mb-3">
+                         <label class="form-label">Change Profile Image</label>
+                         <input type="file" class="form-control"
+                              name="imageFile" accept="image/*">
+                    </div>
+
+                    <div class="text-center">
+                         <button type="submit" class="btn btn-primary px-4">Save
+                              Changes</button>
+                    </div>
+               </form>
+          </div>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+     </body>
+</html>

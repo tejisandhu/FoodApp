@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+     </head>
+
+     <body>
+          <h1 th:if="${message}" style="color: seagreen; ">Success</h1>
+
+          <a th:href="@{/contactus}">Contactus</a>
+          <a th:href="@{/ask}">ASK QUES</a>
+          <a th:href="@{/register}">Register</a>
+          <a th:href="@{/auth/login}">Login</a>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+     </body>

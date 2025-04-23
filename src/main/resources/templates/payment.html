@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Payment</title>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+        <style>
+        body {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #pay-button {
+            width: 100%;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="mb-3">🧾 Complete Your Payment</h2>
+            <p><strong>Order ID:</strong> <span th:text="${orderId}"></span></p>
+            <p><strong>Total Amount:</strong> ₹<span
+                    th:text="${totalPrice}"></span></p>
+            <button id="pay-button" class="btn btn-success mt-3">💳 Pay
+                Now</button>
+        </div>
+
+        <script>
+        var orderId = [[${orderId}]];
+        var totalPrice = [[${totalPrice}]];
+        var razorpayOrderId = "[[${razorpayOrderId}]]";
+        var razorpayKey = "[[${razorpayKey}]]"; // Pass this from your controller
+
+        var options = {
+            "key": razorpayKey,
+            "amount": totalPrice * 100, // amount in paise
+            "currency": "INR",
+            "name": "Your Business Name",
+            "description": "Payment for Order #" + orderId,
+            "order_id": razorpayOrderId,
+            "handler": function (response) {
+                window.location.href = "/customer/dashboard/payment/success?orderId=" 
+                    + orderId + "&payment_id=" + response.razorpay_payment_id;
+            },
+            "theme": {
+                "color": "#F37254"
+            }
+        };
+
+        var rzp1 = new Razorpay(options);
+        document.getElementById("pay-button").onclick = function(e) {
+            rzp1.open();
+            e.preventDefault();
+        };
+    </script>
+    </body>
+</html>

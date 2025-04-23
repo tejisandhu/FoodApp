@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+          <meta charset="UTF-8">
+          <title>Our Menu - FoodExpress</title>
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+          <link rel="stylesheet"
+               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+          <style>
+        .card {
+            width: 18rem;
+            height: 350px;
+            margin: 10px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-body {
+            height: 100%;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-img-top {
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        .btn {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            padding: 8px;
+            margin-top: auto;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .card-title, .card-text {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .view-cart-btn {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .view-cart-btn:hover {
+            background-color: #c54e10;
+            transform: scale(1.05);
+        }
+        .view-cart-btn:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 99, 71, 0.8);
+        }
+        .sticky-btn {
+            position: sticky;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+    </style>
+     </head>
+     <body>
+          <div class="d-flex">
+
+               <!-- Main content -->
+               <div class="flex-grow-1 p-3">
+                    <center>
+                         <h1 style="padding-bottom: 10px; text-align: center;">
+                              <span
+                                   style="border-bottom:3px solid #e25111; padding-bottom: 10px;">OUR
+                                   MENU</span>
+                         </h1>
+                         <hr />
+                    </center>
+
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                         <div class="col" th:each="menu : ${menu}">
+                              <div class="card">
+                                   <div th:if="${menu.image != null}">
+                                        <img
+                                             th:src="@{'/uploads/restaurants/menu/' + ${menu.image}}"
+                                             class="card-img-top"
+                                             alt="${menu.name}" />
+                                   </div>
+                                   <div th:if="${menu.image == null}"
+                                        class="card-img-top bg-light d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-image"
+                                             style="font-size: 2rem; color: #ccc;"></i>
+                                   </div>
+                                   <div class="card-body">
+                                        <h5 class="card-title"
+                                             th:text="${menu.name}">Dish
+                                             Name</h5>
+                                        <p class="card-text"
+                                             th:text="'₹ ' + ${menu.price}">0.00</p>
+
+                                        <input type="number"
+                                             class="quantity form-control mb-2"
+                                             th:id="${'qty-' + menu.itemId}"
+                                             min="1" value="1">
+
+                                        <button class="btn btn-primary"
+                                             th:data-id="${menu.itemId}"
+                                             th:data-name="${menu.name}"
+                                             th:data-price="${menu.price}"
+                                             onclick="addToCart(this)">
+                                             <i class="bi bi-cart-plus"></i> Add
+                                             to Cart
+                                        </button>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+
+                    <div class="sticky-btn mt-4 ">
+                         <a
+                              th:href="@{/customer/dashboard/restaurant/menu/cart(restaurantId=${restaurantId})}"
+                              class="btn view-cart-btn text-dark d-inline-flex align-items-center">
+                              <i class="bi bi-cart me-2"></i> View Cart
+                         </a>
+                    </div>
+               </div>
+          </div>
+
+          <script>
+        function addToCart(button) {
+            const itemId = button.getAttribute('data-id');
+            const name = button.getAttribute('data-name');
+            const price = button.getAttribute('data-price');
+            const qtyInput = document.getElementById('qty-' + itemId);
+            const quantity = parseInt(qtyInput.value) || 1;
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existing = cart.find(i => i.itemId == itemId);
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({ itemId, name, price: parseFloat(price), quantity });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(name + ' added to cart!');
+        }
+    </script>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+     </body>
+</html>

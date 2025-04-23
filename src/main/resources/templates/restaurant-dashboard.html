@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+          <meta charset="UTF-8">
+          <title>Restaurant Dashboard - FoodExpress</title>
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+          <link rel="stylesheet"
+               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+          <style>
+        body {
+            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 50%, #FF99AC 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .dashboard-container {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            padding: 2rem 3rem;
+            max-width: 700px;
+            width: 100%;
+        }
+        .dashboard-title {
+            text-align: center;
+            color: #e63946;
+            margin-bottom: 2rem;
+        }
+        .dashboard-links .btn {
+            width: 100%;
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .logout-btn {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .logout-btn:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
+     </head>
+     <body>
+          <div class="dashboard-container">
+               <h2 class="dashboard-title"><i class="bi bi-speedometer2"></i>
+                    Restaurant Dashboard</h2>
+               <div class="dashboard-links">
+                    <a th:href="@{/restaurant/dashboard/edit}"
+                         class="btn btn-outline-danger">
+                         <i class="bi bi-pencil-square"></i> Edit Restaurant
+                    </a>
+                    <a th:href="@{/restaurant/dashboard/menu/add}"
+                         class="btn btn-outline-danger">
+                         <i class="bi bi-plus-square"></i> Add Menu
+                    </a>
+                    <a th:href="@{/restaurant/dashboard/viewMenu}"
+                         class="btn btn-outline-danger">
+                         <i class="bi bi-card-list"></i> View Menu
+                    </a>
+                    <a th:href="@{/restaurant/dashboard/orders}"
+                         class="btn btn-outline-danger">
+                         <i class="bi bi-receipt-cutoff"></i> View Orders
+                    </a>
+                    <a th:href="@{/auth/logout}"
+                         class="btn btn-secondary logout-btn">
+                         <i class="bi bi-box-arrow-right"></i> Logout
+                    </a>
+               </div>
+          </div>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+     </body>
+</html>

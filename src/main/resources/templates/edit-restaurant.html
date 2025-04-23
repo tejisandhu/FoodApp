@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+          <meta charset="UTF-8">
+          <title>Edit Restaurant - FoodExpress Dashboard</title>
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+          <!-- Bootstrap Icons CDN -->
+          <link rel="stylesheet"
+               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+          <style>
+        body {
+            background: linear-gradient(135deg, #FF9A8B 0%, #FF6A88 50%, #FF99AC 100%);
+            min-height: 100vh;
+        }
+        .dashboard-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 3rem auto;
+            max-width: 600px;
+        }
+        .dashboard-header {
+            color: #e63946;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .form-control {
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        .form-label {
+            position: absolute;
+            top: -0.6rem;
+            left: 1rem;
+            background: #fff;
+            padding: 0 0.4rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .btn-submit {
+            background-color: #e63946;
+            border-color: #e63946;
+            color: #fff;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn-submit:hover {
+            background-color: #d62839;
+            border-color: #c82333;
+        }
+    </style>
+     </head>
+     <body>
+          <div class="dashboard-card">
+               <h2 class="dashboard-header"><i class="bi bi-pencil-square"></i>
+                    Modify Restaurant Info</h2>
+               <form method="post" th:action="@{/dashboard/restaurant/edit}"
+                    enctype="multipart/form-data" th:object="${restaurant}">
+                    <input type="hidden" th:field="*{restaurantId}" />
+
+                    <!-- Restaurant Name -->
+                    <div class="form-group">
+                         <input type="text" id="name" th:field="*{name}"
+                              class="form-control" placeholder=" " required>
+                         <label for="name" class="form-label"><i
+                                   class="bi bi-shop"></i> Restaurant
+                              Name</label>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group">
+                         <input type="text" id="address" th:field="*{address}"
+                              class="form-control" placeholder=" " required>
+                         <label for="address" class="form-label"><i
+                                   class="bi bi-geo-alt"></i> Address</label>
+                    </div>
+
+                    <!-- Cuisine Type -->
+                    <div class="form-group">
+                         <input type="text" id="cuisine"
+                              th:field="*{cuisineType}" class="form-control"
+                              placeholder=" " required>
+                         <label for="cuisine" class="form-label"><i
+                                   class="bi bi-card-list"></i> Cuisine
+                              Type</label>
+                    </div>
+
+                    <!-- Contact Number -->
+                    <div class="form-group">
+                         <input type="tel" id="contact"
+                              th:field="*{contactNumber}" class="form-control"
+                              pattern="[0-9]{10}" placeholder=" " required>
+                         <label for="contact" class="form-label"><i
+                                   class="bi bi-telephone"></i> Contact
+                              Number</label>
+                    </div>
+
+                    <!-- Opening Hours -->
+                    <div class="form-group">
+                         <input type="text" id="openingHours"
+                              th:field="*{openingHours}" class="form-control"
+                              placeholder=" " required>
+                         <label for="openingHours" class="form-label"><i
+                                   class="bi bi-clock"></i> Opening
+                              Hours</label>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                         <input type="file" id="imageFile" name="imageFile"
+                              accept="image/*" class="form-control">
+                         <label for="imageFile" class="form-label"><i
+                                   class="bi bi-upload"></i> Upload New
+                              Image</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit"><i
+                              class="bi bi-save"></i> Save Changes</button>
+               </form>
+          </div>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+     </body>
+</html>

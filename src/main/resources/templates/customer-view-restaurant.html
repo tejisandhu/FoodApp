@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+     <head>
+          <meta charset="UTF-8">
+          <title>Explore Restaurants - FoodExpress</title>
+          <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+          <link rel="stylesheet"
+               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+          <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .restaurant-card {
+            transition: transform 0.3s;
+        }
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+     </head>
+     <body>
+          <div class="container py-5">
+               <h2 class="mb-4 text-center" style="color: #e63946;"><i
+                         class="bi bi-shop"></i> Available Restaurants</h2>
+               <div class="row g-4">
+                    <th:block th:if="${#lists.isEmpty(restaurant)}">
+                         <div class="col-12 text-center">
+                              <p class="text-muted">No restaurants available at
+                                   the moment.</p>
+                         </div>
+                    </th:block>
+                    <th:block th:each="rest : ${restaurant}">
+                         <div
+                              class="col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch">
+                              <div
+                                   class="card restaurant-card w-100 shadow-sm border-0 rounded-3">
+                                   <img th:if="${rest.image != null}"
+                                        th:src="@{'/uploads/restaurants/' + ${rest.image}}"
+                                        class="card-img-top"
+                                        alt="Restaurant Image">
+                                   <div th:if="${rest.image == null}"
+                                        class="card-img-top bg-light d-flex justify-content-center align-items-center"
+                                        style="height: 200px;">
+                                        <i class="bi bi-image"
+                                             style="font-size: 2rem; color: #ccc;"></i>
+                                   </div>
+                                   <div class="card-body text-center">
+                                        <h5 class="card-title fw-bold"
+                                             th:text="${rest.name}"></h5>
+                                        <p class="text-muted mb-1"
+                                             th:text="${rest.address}"></p>
+
+                                        <a
+                                             th:href="@{/customer/dashboard/restaurant/menu (restaurantId=${rest.restaurantId})}"
+                                             class="btn btn-sm btn-outline-danger mt-2">
+                                             <i class="bi bi-eye"></i> View Menu
+                                        </a>
+                                   </div>
+                              </div>
+                         </div>
+                    </th:block>
+               </div>
+          </div>
+          <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+     </body>
+</html>
